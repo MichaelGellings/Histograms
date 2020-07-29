@@ -1,0 +1,16 @@
+main {
+    background: lightgray;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-evenly;
+    width: 400px;
+    height: 400px;
+    margin: 100px;
+    padding: 10px 10px 50px 10px;
+}
+
+div {
+    background: salmon;
+    width: 80px;
+    height: 2px;
+}

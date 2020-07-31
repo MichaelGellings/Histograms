@@ -1,47 +1,41 @@
-// TODO continer (graues main-Element) dynamisch anpassen.
-// TODO Skalen / Achsen anzeigen.
-
-// TODO Datenpunkte eingeben und anzeigen.
-// TODO Balkenbreite eingeben (zunächst Input-Feld?) über Schieber.
-
-// TODO Als Git-Projekt anlegen.
-// TODO Code aufräumen (alles in Funktionen, eventuell mehrerr JS-Dateien).
-
+// Input
 let datapoints = [12, 7, 16, 23 , 16, 28, 60];
 let maxDatapoint = Math.max(...datapoints);
+let binWidth = 10;
+
+// Output
 let main = document.getElementById("container");
-let classWidth = 3;
-let numberOfBars = getNumberOfBars(classWidth, maxDatapoint);
+let numberOfBars = getNumberOfBars(binWidth, maxDatapoint);
+let binsHeight = getHistogram(datapoints);
+
 
 function getHistogram(datapoints) {
     // let numberOfBars = 3;
-    let barsHeight = [];
+    let binsHeight = [];
     for (let i = 1; i <= numberOfBars; i++) {
-        barsHeight.push(0);
+        binsHeight.push(0);
     }
     datapoints.forEach(datapoint => {
 
-        for (let i = 1; i <= numberOfBars; i++) {
-            if (((i-1)*classWidth < datapoint) && (datapoint <= i*classWidth)) { 
-                barsHeight[i-1]++;
+        for (let i = 0; i < numberOfBars; i++) {
+            if (((i)*binWidth < datapoint) && (datapoint <= (i+1)*binWidth)) { 
+                binsHeight[i]++;
             }
         }
     })
-    console.log(barsHeight);
-    return barsHeight;
+    console.log(binsHeight);
+    return binsHeight;
 }
 
-let barsHeight = getHistogram(datapoints);
-
-function getNumberOfBars(barWidth, maxDatapoint) {
-    return Math.ceil(maxDatapoint / barWidth); 
+function getNumberOfBars(binWidth, maxDatapoint) {
+    return Math.ceil(maxDatapoint / binWidth); 
 }
 
 // let bars_height = [1, 3, 2]
 
 
 // Display Bars -> also into function ?
-barsHeight.forEach(barHeight => {
+binsHeight.forEach(barHeight => {
     let bar = document.createElement("div");
     bar.style.height = ((barHeight || 0.02) * 100) + "px";
     bar.style.width = ((380 / numberOfBars) -2 ) + "px";

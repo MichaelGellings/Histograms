@@ -17,6 +17,6 @@ Dynamically change the step width of a histogram for a given set of datapoints.
 ### Refactoring & Admin
 - [x] Create Git Repo.
 - [x] Start README.md
-- [ ] Check variables' names.
+- [x] Check variables' names.
 - [ ] Put everything in functions.
 - [ ] Possibly spread over several files.

@@ -1,69 +1,93 @@
 // Input
-let datapoints = [12, 7, 16, 23 , 16, 28, 60];
-let maxDatapoint = Math.max(...datapoints);
-let binWidth = 15;
+const datapoints = [12, 7, 16, 23 , 16, 28, 60];
+const inputRange = document.getElementById("inputRange");
+
+const submitButton = document.getElementById("submitButton");
+submitButton.addEventListener("click", drawHistorgram)
 
 // Output
-let binsContainer = document.getElementById("binsContainer");
-let labelsContainer = document.getElementById("labelsContainer");
-let numberOfBars = getNumberOfBins(binWidth, maxDatapoint);
-let binsRange = [];
-let binsHeight = getHistogram(datapoints);
 
+function drawHistorgram() {
 
-function getHistogram(datapoints) {
+    const binsContainer = document.getElementById("binsContainer");
+    binsContainer.innerHTML = "";
+    const labelsContainer = document.getElementById("labelsContainer");
+    labelsContainer.innerHTML = "";
+
+    const binRange = inputRange.value;
+    const numberOfBars = getNumberOfBins(datapoints, binRange);
+    const histogram = getHistogram(datapoints, binRange);       // returns Array [items per bin, bin labels]
+    const bars = histogram[0];
+    const labels = histogram[1];
+    const barWidth = ((380 / numberOfBars) - 2 ) + "px";
+
+    // Display Bars
+    bars.forEach(barHeight => {    
+        const bar = document.createElement("div");
+        bar.style.height = ((barHeight || 0.02) * 100) + "px";
+        // bar.style.minWidth = "20px";
+        bar.style.width = barWidth;
+        bar.style.background = "salmon";
+
+        binsContainer.appendChild(bar);
+    });
+
+    // Display Labels
+    labels.forEach(binInterval => {
+        const labelContainer = document.createElement("div");
+        const label = document.createElement("div");
+
+        labelContainer.style.width = barWidth;
+        labelContainer.style.display = "flex";
+        labelContainer.style.justifyContent = "center";
+
+        label.innerHTML = binInterval.get("from") + " - " + binInterval.get("to");
+        label.margin ="auto";
+        // label.style.background = "yellow";
+        label.style.fontFamily = "Verdana, Arial, sans-serif";
+
+        labelContainer.appendChild(label);
+        labelsContainer.appendChild(labelContainer);
+    });
+}
+
+function getHistogram(datapoints, binRange) {
+
+    const numberOfBars = getNumberOfBins(datapoints, binRange);   
+    let numberOfItemsPerBin = [];
+    let binsLabels = [];
     
-    let binsHeight = [];
     
-    for (let i = 1; i <= numberOfBars; i++) {
-        binsHeight.push(0);
+    for (let i = 0; i < numberOfBars; i++) {
+        
+        // initialize numberOfItemsPerBin with 0 for each bin
+        numberOfItemsPerBin.push(0);
+        
+        // determine range values for current label
+        let label = new Map();
+        label.set("from", (i) * binRange + 1);
+        label.set("to", (i+1) * binRange);
+        binsLabels[i] = label;
     }
+
     datapoints.forEach(datapoint => {
         for (let i = 0; i < numberOfBars; i++) {
-            // determine range values for current label
-            let range = new Map();
-            range.set("from", (i) * binWidth + 1);
-            range.set("to", (i+1) * binWidth);
-            binsRange[i] = range;
-            // determine height for current bin
-            if ((range.get("from") < datapoint) && (datapoint <= range.get("to"))) { 
-                binsHeight[i]++;
+            const currentBin = binsLabels[i];
+            if ((currentBin.get("from") < datapoint) && (datapoint <= currentBin.get("to"))) { 
+                numberOfItemsPerBin[i]++;
             }
         }
     })
-    console.log(binsHeight);
-    return binsHeight;
+    
+    return [numberOfItemsPerBin, binsLabels];  // rename binsRange -> labels, or similar?
 }
 
-function getNumberOfBins(binWidth, maxDatapoint) {
-    return Math.ceil(maxDatapoint / binWidth); 
+function getNumberOfBins(datapoints, binRange) {
+    if(binRange != 0) {
+        const maxDatapoint = Math.max(...datapoints);
+        return Math.ceil(maxDatapoint / binRange);  
+    }
+    
 }
 
-// Display Bins -> also into function ?
-binsHeight.forEach(barHeight => {
-    let bar = document.createElement("div");
-    bar.style.height = ((barHeight || 0.02) * 100) + "px";
-    // bar.style.minWidth = "20px";
-    bar.style.width = ((380 / numberOfBars) -2 ) + "px";
-    bar.style.background = "salmon";
 
-    binsContainer.appendChild(bar);
-});
-
-// Display Labels 
-binsRange.forEach(binRange => {
-    let label = document.createElement("div");
-    let labelContainer = document.createElement("div");
-
-    labelContainer.style.width = ((380 / numberOfBars) -2 ) + "px";     // same as in Bins -> function ?
-    labelContainer.style.display = "flex";
-    labelContainer.style.justifyContent = "center";
-
-    label.innerHTML = binRange.get("from") + " - " + binRange.get("to");
-    label.margin ="auto";
-    // label.style.background = "yellow";
-    label.style.fontFamily = "Verdana, Arial, sans-serif";
-
-    labelContainer.appendChild(label);
-    labelsContainer.appendChild(labelContainer);
-});

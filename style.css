@@ -1,8 +1,12 @@
+section {
+    margin: 50px 100px;
+}
+
 main {
     background: lightgray;
     width: 400px;
     height: 400px;
-    margin: 100px;
+    margin: 50px 100px;
     padding: 10px;
 }
 

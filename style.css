@@ -24,3 +24,7 @@ main {
     justify-content: space-evenly;
     height: 40px;
 }
+
+input[type=range] {
+    width: 400px;
+}

@@ -1,10 +1,18 @@
 // Input
 const datapoints = [12, 7, 16, 23 , 16, 28, 60];
+
+// const inputRange = document.getElementById("inputRange");
+// const submitButton = document.getElementById("submitButton");
+// submitButton.addEventListener("click", drawHistorgram);
+
 const inputRange = document.getElementById("inputRange");
+const control = document.getElementById("control");
+drawHistorgram();
+inputRange.addEventListener("change", drawHistorgram);
 
-const submitButton = document.getElementById("submitButton");
-submitButton.addEventListener("click", drawHistorgram)
-
+function testOutput() {
+    console.log(inputRange.value);
+}
 // Output
 
 function drawHistorgram() {
@@ -15,11 +23,15 @@ function drawHistorgram() {
     labelsContainer.innerHTML = "";
 
     const binRange = inputRange.value;
+    control.innerHTML = binRange;
+
     const numberOfBars = getNumberOfBins(datapoints, binRange);
     const histogram = getHistogram(datapoints, binRange);       // returns Array [items per bin, bin labels]
     const bars = histogram[0];
     const labels = histogram[1];
     const barWidth = ((380 / numberOfBars) - 2 ) + "px";
+
+    // console.log(bars);
 
     // Display Bars
     bars.forEach(barHeight => {    

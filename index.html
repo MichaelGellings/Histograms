@@ -9,15 +9,20 @@
 </head>
 <body>
     <section>
-        <form action="">
+        <!-- <form action=""> -->
+            Datenpunkte
+            <input type="text" id="datapoints"/>
+            <button type="button" name="submitButton" id="submitButton">Los!</button>
+            <br/>
             Range per Bin: 
             <div id="control"></div>
+            
             <!-- <input type="text" name="inputRange" id="inputRange" size="4" maxlength="4">
-            <button type="button" name="submitButton" id="submitButton">Los!</button><br /> -->
+            <br /> -->
             <br />
-            <input type="range" min="2" value="10" max="30" id="inputRange">
+            <input type="range" min="2" value="10" max="30" id="inputRange"/>
             <!-- Why does value ="10" not work? Is it a Firefox thing?-->
-        </form>
+        <!-- </form> -->
     </section>
     <main>
         <div id="binsContainer"></div>

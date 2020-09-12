@@ -1,21 +1,27 @@
 // Input
-const datapoints = [12, 7, 16, 23 , 16, 28, 60];
+// let datapoints = [12, 7, 16, 23 , 16, 28, 60];
+// let datapointsAsStrings = [];
 
-// const inputRange = document.getElementById("inputRange");
-// const submitButton = document.getElementById("submitButton");
-// submitButton.addEventListener("click", drawHistorgram);
+const test = document.getElementById("datapoints");
 
-const inputRange = document.getElementById("inputRange");
+const submitButton = document.getElementById("submitButton");
+submitButton.addEventListener("click", drawHistorgram);
+
 const control = document.getElementById("control");
-drawHistorgram();
-inputRange.addEventListener("change", drawHistorgram);
+const inputRange = document.getElementById("inputRange");
+inputRange.addEventListener("mousemove", drawHistorgram);
+inputRange.addEventListener("click", drawHistorgram);
 
-function testOutput() {
-    console.log(inputRange.value);
-}
+drawHistorgram();
+
 // Output
 
 function drawHistorgram() {
+
+    const datapointsAsStrings = test.value.split(" ");
+    console.log(datapointsAsStrings);
+    const datapoints = datapointsAsStrings.map(item => parseInt(item));
+    console.log(datapoints);
 
     const binsContainer = document.getElementById("binsContainer");
     binsContainer.innerHTML = "";

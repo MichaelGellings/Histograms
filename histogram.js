@@ -41,9 +41,10 @@ function drawHistorgram() {
     // console.log(bars);
 
     // Display Bars
+    const maxBarHeight = Math.max(...bars);
     bars.forEach(barHeight => {    
         const bar = document.createElement("div");
-        bar.style.height = ((barHeight || 0.02) * 100) + "px";
+        bar.style.height = ((barHeight / maxBarHeight) * 350 || 1) + "px";      // Factor 350 corresponds to container height
         // bar.style.minWidth = "20px";
         bar.style.width = barWidth;
         bar.style.background = "salmon";

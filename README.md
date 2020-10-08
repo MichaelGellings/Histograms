@@ -8,10 +8,12 @@ Dynamically change the step width of a histogram for a given set of datapoints.
   - [x] Label x-axis.
   - [ ] Label y-axix.
   - [ ] Make label resize dynamically.
+- [ ] Make bin heights resize dynamically (so that maximum value fits in).
 - [ ] Display datapoints (as list/array).
+- [x] Display slider.
 - [ ] Slider: Add labels and tickmarks.
 ### User Input
-- [ ] Data points: enter via input field.
+- [x] Data points: enter via input field.
 - [ ] Alternative input: read data points from file.
 - [x] Bin width: enter via input field. (for now)
 - [x] Bin width: change via slider. (eventually)

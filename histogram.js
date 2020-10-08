@@ -4,13 +4,13 @@
 
 const test = document.getElementById("datapoints");
 
-const submitButton = document.getElementById("submitButton");
-submitButton.addEventListener("click", drawHistorgram);
-
 const control = document.getElementById("control");
 const inputRange = document.getElementById("inputRange");
 inputRange.addEventListener("mousemove", drawHistorgram);
 inputRange.addEventListener("click", drawHistorgram);
+
+const submitButton = document.getElementById("submitButton");
+submitButton.addEventListener("click", drawHistorgram);
 
 drawHistorgram();
 
@@ -22,6 +22,7 @@ function drawHistorgram() {
     console.log(datapointsAsStrings);
     const datapoints = datapointsAsStrings.map(item => parseInt(item));
     console.log(datapoints);
+    // TODO catch error when last item NaN because of trailing space
 
     const binsContainer = document.getElementById("binsContainer");
     binsContainer.innerHTML = "";

@@ -7,10 +7,9 @@ Dynamically change the step width of a histogram for a given set of datapoints.
 - [ ] Label axes.
   - [x] Label x-axis.
   - [x] Label y-axix.
-  - [ ] Make label fro x-axix resize dynamically.
-  - [ ] Find algorithm so that y-axis displays maximum of 10 lines (stepWidth * numberOfLines).
-- [ ] Make bin heights resize dynamically (so that maximum value fits in).
-- [ ] Display datapoints (as list/array).
+  - [x] Find algorithm so that y-axis displays maximum of 10 lines (stepWidth * numberOfLines).
+- [x] Make bin heights resize dynamically (so that maximum value fits in).
+- [ ] Display datapoints in ascending order.
 - [x] Display slider.
 - [ ] Slider: Add labels and tickmarks.
 ### User Input

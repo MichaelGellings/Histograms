@@ -20,11 +20,7 @@ drawHistorgram();
 
 function drawHistorgram() {
 
-    const datapointsAsStrings = test.value.split(" ");
-    console.log(datapointsAsStrings);
-    const datapoints = datapointsAsStrings.map(item => parseInt(item));
-    console.log(datapoints);
-    // TODO catch error when an item is NaN because of additional space
+    const datapoints = getDatapoints();
 
     const linesContainer = document.getElementById("linesContainer");
     const binsContainer = document.getElementById("binsContainer");
@@ -44,15 +40,22 @@ function drawHistorgram() {
     // console.log(bars);
     const maxBarHeight = Math.max(...bars);
 
+
+
     // Display lines
-    for (let i = maxBarHeight; i > 0; i--) {
+    const numberOfLines = getNumberOfLinesAndStepWidth(maxBarHeight, 1)[0];
+    const stepWidth = getNumberOfLinesAndStepWidth(maxBarHeight, 1)[1];
+    while (linesContainer.firstChild) {
+        linesContainer.removeChild(linesContainer.firstChild);
+    }
+    for (let i = numberOfLines; i >= 0; i--) {
         const line = document.createElement("div");
         line.style.position = "relative";
         line.style.right ="30px";
-        line.style.height = ((350 / maxBarHeight) - 1) + "px";
+        line.style.height = ((350 / numberOfLines) - 1) + "px";
         line.style.width = "430px";
         line.style.borderTop = "1px solid black";
-        line.innerHTML = i;
+        line.innerHTML = i * stepWidth;
 
         linesContainer.appendChild(line);
     }
@@ -61,7 +64,7 @@ function drawHistorgram() {
     // Display Bars
     bars.forEach(barHeight => {    
         const bar = document.createElement("div");
-        bar.style.height = ((barHeight / maxBarHeight) * 350 || 2) + "px";      // Factor 350 corresponds to container height
+        bar.style.height = ((barHeight / (numberOfLines * stepWidth)) * 350 || 2) + "px";      // Factor 350 corresponds to container height
         // bar.style.minWidth = "20px";
         bar.style.width = barWidth;
         bar.style.background = "salmon";
@@ -86,6 +89,15 @@ function drawHistorgram() {
         labelContainer.appendChild(label);
         labelsContainer.appendChild(labelContainer);
     });
+}   // end drawHistorgram()
+
+function getDatapoints() {
+    const datapointsAsStrings = test.value.split(" ");
+    // console.log(datapointsAsStrings);
+    const datapoints = datapointsAsStrings.map(item => parseInt(item));
+    // console.log(datapoints);
+    // TODO catch error when an item is NaN because of additional space
+    return datapoints;
 }
 
 function getHistogram(datapoints, binRange) {
@@ -119,12 +131,34 @@ function getHistogram(datapoints, binRange) {
     return [numberOfItemsPerBin, binsLabels];  // rename binsRange -> labels, or similar?
 }
 
+function getMaxDatapoint() {
+    return Math.max(...getDatapoints());
+}
+
 function getNumberOfBins(datapoints, binRange) {
     if(binRange != 0) {
-        const maxDatapoint = Math.max(...datapoints);
+        const maxDatapoint = getMaxDatapoint(datapoints);
         return Math.ceil(maxDatapoint / binRange);  
     }
     
+}
+
+const maxDatapoint = getMaxDatapoint();
+
+function getNumberOfLinesAndStepWidth(numberOfLines, stepWidthFactor) {
+    console.log(numberOfLines, stepWidthFactor);
+    for(let i = 1; i <= 10; i++) {           // stepWidth
+        if (numberOfLines / i < 10) {
+            for(let j = 1; j <= 10; j++) {   // numberOfLines
+                if (i * j >= numberOfLines) {
+                    console.log("Hallo");
+                    return [j, (i * stepWidthFactor)];
+                }
+            }
+        }
+    }
+
+    getNumberOfLinesAndStepWidth((numberOfLines / 10), (stepWidthFactor * 10));
 }
 
 

@@ -2,6 +2,8 @@
 // let datapoints = [12, 7, 16, 23 , 16, 28, 60];
 // let datapointsAsStrings = [];
 
+const main = document.getElementById("main");
+
 const test = document.getElementById("datapoints");
 
 const control = document.getElementById("control");
@@ -22,8 +24,9 @@ function drawHistorgram() {
     console.log(datapointsAsStrings);
     const datapoints = datapointsAsStrings.map(item => parseInt(item));
     console.log(datapoints);
-    // TODO catch error when last item NaN because of trailing space
+    // TODO catch error when an item is NaN because of additional space
 
+    const linesContainer = document.getElementById("linesContainer");
     const binsContainer = document.getElementById("binsContainer");
     binsContainer.innerHTML = "";
     const labelsContainer = document.getElementById("labelsContainer");
@@ -36,23 +39,37 @@ function drawHistorgram() {
     const histogram = getHistogram(datapoints, binRange);       // returns Array [items per bin, bin labels]
     const bars = histogram[0];
     const labels = histogram[1];
-    const barWidth = ((380 / numberOfBars) - 2 ) + "px";
+    const barWidth = ((400 / numberOfBars) - 5 ) + "px";
 
     // console.log(bars);
+    const maxBarHeight = Math.max(...bars);
+
+    // Display lines
+    for (let i = maxBarHeight; i > 0; i--) {
+        const line = document.createElement("div");
+        line.style.position = "relative";
+        line.style.right ="30px";
+        line.style.height = ((350 / maxBarHeight) - 1) + "px";
+        line.style.width = "430px";
+        line.style.borderTop = "1px solid black";
+        line.innerHTML = i;
+
+        linesContainer.appendChild(line);
+    }
+    // TODO Line for 0
 
     // Display Bars
-    const maxBarHeight = Math.max(...bars);
     bars.forEach(barHeight => {    
         const bar = document.createElement("div");
-        bar.style.height = ((barHeight / maxBarHeight) * 350 || 1) + "px";      // Factor 350 corresponds to container height
+        bar.style.height = ((barHeight / maxBarHeight) * 350 || 2) + "px";      // Factor 350 corresponds to container height
         // bar.style.minWidth = "20px";
         bar.style.width = barWidth;
         bar.style.background = "salmon";
 
         binsContainer.appendChild(bar);
     });
-
-    // Display Labels
+    
+        // Display Labels
     labels.forEach(binInterval => {
         const labelContainer = document.createElement("div");
         const label = document.createElement("div");

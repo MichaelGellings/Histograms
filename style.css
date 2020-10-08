@@ -3,18 +3,28 @@ section {
 }
 
 main {
+    position: relative;
     background: lightgray;
     width: 400px;
     height: 400px;
     margin: 50px 100px;
-    padding: 10px;
+    padding: 10px 10px 10px 40px;
+}
+
+#linesContainer {
+    position: absolute;
+    z-index: 40;
 }
 
 #binsContainer {
+    /* background: magenta; */
+    position: relative;
+    width: 400px;
     display: flex;
     align-items: flex-end;
     justify-content: space-evenly;
     height: 350px;
+    z-index: 50;
 }
 
 #labelsContainer {

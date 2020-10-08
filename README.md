@@ -6,8 +6,9 @@ Dynamically change the step width of a histogram for a given set of datapoints.
 - [ ] Container (grey main element): make resize dynamically (when bar width reaches a miminum width).
 - [ ] Label axes.
   - [x] Label x-axis.
-  - [ ] Label y-axix.
-  - [ ] Make label resize dynamically.
+  - [x] Label y-axix.
+  - [ ] Make label fro x-axix resize dynamically.
+  - [ ] Find algorithm so that y-axis displays maximum of 10 lines (stepWidth * numberOfLines).
 - [ ] Make bin heights resize dynamically (so that maximum value fits in).
 - [ ] Display datapoints (as list/array).
 - [x] Display slider.
